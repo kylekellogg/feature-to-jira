@@ -28,22 +28,22 @@ Scenario: User successfully logs in via the login form
 
 This would output as:
 
-{color:red}\_Feature\_{color}: When anyone uses this utility
-\*  {color:red}\*As\*{color} a User
-\*  {color:red}\*I\*{color} want to know how my .feature file will be formatted
-\*  {color:red}\*So\*{color} that I can decide if I want to use this utility
-
-{color:blue}@wip{color}
-{color:red}\_Scenario\_{color}: User successfully logs in via the login form
-\*  {color:red}\*Given\*{color} I am on the home page
-\*  {color:red}\*And\*{color} I show that "inline strings" can be formatted
-\*  {color:red}\*And\*{color} I show that block strings can be formatted
-{quote}{color:orange}"""
-This is a really, really,
-really, really, really, really,
-really, really, really, really,
-really, really, really, really,
-long string that serves no purpose
-"""{color}{quote}
-\*  {color:red}\*When\*{color} I am done
+{color:red}\_Feature\_{color}: When anyone uses this utility<br>
+\*  {color:red}\*As\*{color} a User<br>
+\*  {color:red}\*I\*{color} want to know how my .feature file will be formatted<br>
+\*  {color:red}\*So\*{color} that I can decide if I want to use this utility<br>
+<br>
+{color:blue}@wip{color}<br>
+{color:red}\_Scenario\_{color}: User successfully logs in via the login form<br>
+\*  {color:red}\*Given\*{color} I am on the home page<br>
+\*  {color:red}\*And\*{color} I show that "inline strings" can be formatted<br>
+\*  {color:red}\*And\*{color} I show that block strings can be formatted<br>
+{quote}{color:orange}"""<br>
+This is a really, really,<br>
+really, really, really, really,<br>
+really, really, really, really,<br>
+really, really, really, really,<br>
+long string that serves no purpose<br>
+"""{color}{quote}<br>
+\*  {color:red}\*When\*{color} I am done<br>
 \*  {color:red}\*Then\*{color} I have shown how the formatting works
