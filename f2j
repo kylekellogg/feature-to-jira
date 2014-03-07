@@ -1,0 +1,86 @@
+#!/usr/bin/env bash
+
+# Ensure only one file at a time
+if [[ $# -ne 1 ]]
+  then
+  echo ""
+  echo "Usage $0 path/to/file.feature"
+  echo ""
+  exit 1
+fi
+
+base=$(basename $1)
+file=$1
+name=${base%.*}
+ext=${base##*.}
+
+# Ensure file is a feature file
+if [[ $ext != "feature" ]]
+  then
+  echo ""
+  echo "Sorry, but $0 requires a feature file"
+  echo ""
+  exit 1
+fi
+
+# Ensure temp directory exists
+if [[ ! -d ~/.f2j ]]
+  then
+  mkdir ~/.f2j
+fi
+
+cp $file ~/.f2j/
+
+# temp files, because why not
+tags=$name"1."$ext
+scenarios=$name"2."$ext
+steps=$name"3."$ext
+strings=$name"4."$ext
+block=$name"5."$ext
+
+# for any @whatever at the start of a line, color it blue
+sed '/^\(@.*\)$/s//{color:blue}\1{color}/g' ~/.f2j/$file > ~/.f2j/$tags
+rm ~/.f2j/$file
+
+# for any Scenario or Feature at the start of a line, color it red and emphasize it
+sed '/^\(Scenario\)/s//{color:red}_\1_{color}/g;/^\(Feature\)/s//{color:red}_\1_{color}/g' ~/.f2j/$tags > ~/.f2j/$scenarios
+rm ~/.f2j/$tags
+
+# for any 2+ spaces and Given, And, When, Then, As, I, or So at the start of a line, color it red, bold it, and make it part of a list
+sed '/^\([ ]\{2,\}\)\(Given\)/s//*\1{color:red}*\2*{color}/g;/^\([ ]\{2,\}\)\(And\)/s//*\1{color:red}*\2*{color}/g;/^\([ ]\{2,\}\)\(When\)/s//*\1{color:red}*\2*{color}/g;/^\([ ]\{2,\}\)\(Then\)/s//*\1{color:red}*\2*{color}/g;/^\([ ]\{2,\}\)\(As\)/s//*\1{color:red}*\2*{color}/g;/^\([ ]\{2,\}\)\(I\)/s//*\1{color:red}*\2*{color}/g;/^\([ ]\{2,\}\)\(So\)/s//*\1{color:red}*\2*{color}/g' ~/.f2j/$scenarios > ~/.f2j/$steps
+rm ~/.f2j/$scenarios
+
+# for any inline string (following a word character and a space), color it orange
+sed '/\([a-zA-Z0-9\{\}\-_\+] \)\("[a-zA-Z0-9]\{1,\}"\)/s//\1{color:orange}\2{color}/g' ~/.f2j/$steps > ~/.f2j/$strings
+rm ~/.f2j/$steps
+
+# for any block string, color it orange and make it a blockquote
+hasFoundBlock=false
+hadFoundBlock=false
+
+echo "" > ~/.f2j/$block
+
+while read line
+do
+  hadFoundBlock=$hasFoundBlock
+
+  if [[ $hasFoundBlock = true ]]
+    then
+    [[ -n $(echo $line | grep \"\"\") ]] && hasFoundBlock=false || hasFoundBlock=true
+  else
+    [[ -n $(echo $line | grep \"\"\") ]] && hasFoundBlock=true || hasFoundBlock=false
+  fi
+
+  if [[ $hasFoundBlock = true && $hadFoundBlock = false ]]
+    then
+    echo "$(echo $line | sed '/"""/s//{quote}{color:orange}"""/')" >> ~/.f2j/$block
+  elif [[ $hasFoundBlock = false && $hadFoundBlock = true ]]
+    then
+    echo "$(echo $line | sed '/"""/s//"""{color}{quote}/')" >> ~/.f2j/$block
+  else
+    echo "$line" >> ~/.f2j/$block
+  fi
+done < ~/.f2j/$strings
+
+cat ~/.f2j/$block
+rm ~/.f2j/$block
