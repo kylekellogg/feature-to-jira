@@ -2,7 +2,22 @@
 
 This is a simple utility takes in a .feature file and returns a JIRA comment friendly formatted version of it via stdout, so it's great in combination with piping or redirecting.
 
-Here's a simple .feature file example:
+## Installation
+
+```sh
+curl -fsSL https://raw.github.com/sqow/feature-to-jira/master/f2j -o /usr/local/bin/f2j; chmod a+x /usr/local/bin/f2j;
+```
+
+## Usage
+
+```sh
+cd repo
+f2j test.feature
+```
+
+## Example
+
+### Feature file
 
 ```Cucumber
 Feature: When anyone uses this utility
@@ -26,7 +41,7 @@ Scenario: User successfully logs in via the login form
   Then I have shown how the formatting works
 ```
 
-This would output as:
+### Raw output
 
 {color:red}\_Feature\_{color}: When anyone uses this utility<br>
 \*  {color:red}\*As\*{color} a User<br>
@@ -48,6 +63,6 @@ long string that serves no purpose<br>
 \*  {color:red}\*When\*{color} I am done<br>
 \*  {color:red}\*Then\*{color} I have shown how the formatting works
 
-Which happens to look like this in a JIRA comment:
+### Raw output put into a JIRA comment
 
 ![Formatted JIRA comment](formattedPreview.png)
