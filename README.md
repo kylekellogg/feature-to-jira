@@ -28,16 +28,16 @@ Scenario: User successfully logs in via the login form
 
 This would output as:
 
-{color:red}_Feature_{color}: When anyone uses this utility
-*  {color:red}*As*{color} a User
-*  {color:red}*I*{color} want to know how my .feature file will be formatted
-*  {color:red}*So*{color} that I can decide if I want to use this utility
+{color:red}\_Feature\_{color}: When anyone uses this utility
+\*  {color:red}\*As\*{color} a User
+\*  {color:red}\*I\*{color} want to know how my .feature file will be formatted
+\*  {color:red}\*So\*{color} that I can decide if I want to use this utility
 
 {color:blue}@wip{color}
-{color:red}_Scenario_{color}: User successfully logs in via the login form
-*  {color:red}*Given*{color} I am on the home page
-*  {color:red}*And*{color} I show that "inline strings" can be formatted
-*  {color:red}*And*{color} I show that block strings can be formatted
+{color:red}\_Scenario\_{color}: User successfully logs in via the login form
+\*  {color:red}\*Given\*{color} I am on the home page
+\*  {color:red}\*And\*{color} I show that "inline strings" can be formatted
+\*  {color:red}\*And\*{color} I show that block strings can be formatted
 {quote}{color:orange}"""
 This is a really, really,
 really, really, really, really,
@@ -45,5 +45,5 @@ really, really, really, really,
 really, really, really, really,
 long string that serves no purpose
 """{color}{quote}
-*  {color:red}*When*{color} I am done
-*  {color:red}*Then*{color} I have shown how the formatting works
+\*  {color:red}\*When\*{color} I am done
+\*  {color:red}\*Then\*{color} I have shown how the formatting works
