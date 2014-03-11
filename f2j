@@ -42,6 +42,8 @@ do
     cat ~/.f2j/$file
     rm ~/.f2j/$file
   else
+    echo ""
     echo "Could not do anything with $file because it either doesn't exist or is not a .feature file"
+    echo ""
   fi
 done
