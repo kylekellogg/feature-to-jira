@@ -15,6 +15,16 @@ cd repo
 f2j test.feature
 ```
 
+I've found that this utility works especially well with copying directly to the clipboard like so:
+```sh
+f2j test.feature | pbcopy
+```
+
+The utility can also handle multiple files at once, should that be what you're after:
+```sh
+f2j test.feature test2.feature
+```
+
 ## Example
 
 ### Feature file
