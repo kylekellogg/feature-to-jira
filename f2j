@@ -13,15 +13,14 @@ if [[ ! -d ~/.f2j ]]
   mkdir ~/.f2j
 fi
 
-for file in ${@}
+for file in "${@}"
 do
-  base=$(basename $file)
-  name=${base%.*}
+  base=$(basename "$file")
   ext=${base##*.}
 
   if [[ $ext == "feature" && -f $file ]]
     then
-    cp $file ~/.f2j/$file
+    cp "$file" ~/.f2j/"$file"
     sed "{
       /^\(@.*\)$/s//{color:blue}\1{color}/g
       /^\(Scenario\)/s//{color:red}_\1_{color}/g
@@ -38,9 +37,9 @@ do
         /^\([ ]\{2,\}\)\(\"\"\"\)/s//{quote}\1{color:orange}\2/
       }
       /^\([ ]\{2,\}\)\(\"\"\"\)/s//\1\2{color}{quote}/
-    }" $file > ~/.f2j/$file
-    cat ~/.f2j/$file
-    rm ~/.f2j/$file
+    }" "$file" > ~/.f2j/"$file"
+    cat ~/.f2j/"$file"
+    rm ~/.f2j/"$file"
   else
     echo ""
     echo "Could not do anything with $file because it either doesn't exist or is not a .feature file"
